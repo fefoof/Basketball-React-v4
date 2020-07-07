@@ -69,10 +69,15 @@ router.post('/:id', (req, res, next) => {
     });   
 });
 
-const deletePlayer = (req, res, next) => {
-    User.deleteUserByPlayer(req.params.idPlayer)
+//const deletePlayer = (req, res, next) => {
+router.delete('/:id', (req, res, next) => {  
+
+  const {idPlayer,name,surname, birthdate} = req.body;
+  const newPlayer = new Player(idPlayer,name,surname, birthdate);
+
+    User.deleteUserByPlayer(idPlayer)
     .then(playerBD => {
-        Player.deletePlayer(req.params.idPlayer)
+        Player.deletePlayer(idPlayer)
         .then(playerBD => {
           res.json({playerBD}); 
         })
@@ -83,7 +88,7 @@ const deletePlayer = (req, res, next) => {
     .catch(err => {
       next(err);  
     }); 
-};
+});
 
 //const getAllPlayers = (req, res, next) => {
 //router.get('/', validar(), getAllUser()); y dejar las funciones abajo por fuera

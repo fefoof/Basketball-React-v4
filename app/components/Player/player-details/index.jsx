@@ -1,5 +1,6 @@
 const React = require('react');
 const {Link} = require ('react-router-dom');
+const { Redirect } = require ('react-router-dom');
 const Player = require('../player');
 
 class PlayerDetail extends React.Component {
@@ -13,6 +14,7 @@ class PlayerDetail extends React.Component {
             surname: '',
             birthdate: '',            
             loading: true,
+            redirect:false,
             error: null,
         }
 
@@ -77,7 +79,27 @@ class PlayerDetail extends React.Component {
     }
 
     handleBorrar(event) {
-        alert("Borrar");
+        alert("Se va a borrar el jugador y usuario");
+        event.preventDefault();
+        console.log(this.state.ci);
+        fetch(`/api/middlewares/${this.props.id}`, {
+            method: 'DELETE',
+            headers : { "Content-Type" : "application/json; charset=utf-8"},
+            body: JSON.stringify({
+                idPlayer: this.state.ci,
+                name: this.state.name,
+                surname: this.state.surname,
+                birthdate: this.state.birthdate                                
+            })
+        }).then(res => res.json()).then((data) =>{
+
+            this.setState({
+                redirect: true
+            });
+
+        }).catch((err) => {
+            alert(err);
+        });        
     }
 
     handleSubmit(event) {
@@ -99,7 +121,7 @@ class PlayerDetail extends React.Component {
             });
 
         }).catch((err) => {
-            alert('Ocurrio un error');
+            alert(err);
         });
     }
 
@@ -110,10 +132,10 @@ class PlayerDetail extends React.Component {
                 <div>Cargando...</div>
             )
         }
-
+ 
         if (this.state.redirect) {
-            return <Redirect to="/players" />
-        }        
+            return (<Redirect to="/players" />)
+        }         
 
         if (this.state.error) {
             return (
@@ -173,12 +195,12 @@ class PlayerDetail extends React.Component {
                     <button primary class="ui primary button" >
                         Salvar
                     </button>
-                    <button class="ui button" onclick={this.handleBorrar}>
+                    <button class="ui button" onClick={this.handleBorrar}>
                         Borrar
-                    </button>                                           
+                    </button>            
                 </div>
                 </form>
-             
+ 
             </div>
         </div>
     </div> 
