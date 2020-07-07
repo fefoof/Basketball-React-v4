@@ -1,0 +1,16 @@
+const router = require('express').Router();
+const todoListRouter = require('./pages/to-do-list');
+const playerRouter = require('./pages/players');
+const userRouter = require('./pages/users');
+const gameRouter = require('./pages/games');
+const { appErrorHandler } = require('../middlewares/error-handler');
+
+router.use('/players', playerRouter);
+router.use('/users', userRouter);
+router.use('/games', gameRouter);
+router.use('/to-do-list', todoListRouter);
+//router.use('/*', todoListRouter);/// ACA METER LA FUNCION DE SESSION cuando voy a usar antes de llamar a todoListRouter
+
+router.use(appErrorHandler);
+
+module.exports = router;
