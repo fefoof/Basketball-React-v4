@@ -16,7 +16,7 @@ const { apiAuthorizationMiddleware } = require('../middlewares/authorization-mid
 
 router.use(apiAuthorizationMiddleware);
 router.use('/tasks', taskRouter);
-router.use('/middlewares', playerRouter);
+router.use('/middlewares', apiAuthorizationMiddleware, playerRouter);
 router.use('/championship', championshipRouter);
 router.use('/field', fieldRouter);
 router.use('/group', groupRouter);

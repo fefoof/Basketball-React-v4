@@ -4,8 +4,10 @@ const playerRouter = require('./pages/players');
 const userRouter = require('./pages/users');
 const gameRouter = require('./pages/games');
 const { appErrorHandler } = require('../middlewares/error-handler');
+const { appAuthorizationMiddleware } = require('../middlewares/authorization-middleware');
 
-router.use('/players', playerRouter);
+router.use(appAuthorizationMiddleware);
+router.use('/players', appAuthorizationMiddleware, playerRouter);
 router.use('/users', userRouter);
 router.use('/games', gameRouter);
 router.use('/to-do-list', todoListRouter);
