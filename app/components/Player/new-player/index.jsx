@@ -80,7 +80,7 @@ class NewPlayer extends React.Component {
     <div class="ui middle aligned center aligned grid">
         <div class="column">            
             <div>
-                <h2 className="red-text">Crear un nuevo jugador</h2>
+                <h2 class="red-text">Crear un nuevo jugador</h2>
                
                 <form class="ui form" onSubmit={this.handleSubmit}>
                 <div class="ui stacked segment">

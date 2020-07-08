@@ -96,6 +96,7 @@ class PlayerDetail extends React.Component {
             this.setState({
                 redirect: true
             });
+            
 
         }).catch((err) => {
             alert(err);
@@ -119,7 +120,6 @@ class PlayerDetail extends React.Component {
             this.setState({
                 redirect: true
             });
-
         }).catch((err) => {
             alert(err);
         });

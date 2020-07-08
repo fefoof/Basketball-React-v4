@@ -5,6 +5,7 @@ module.exports = {
         'to-do-list': './app/client/to-do-list.js',
         'players': './app/client/players.js',
         'users': './app/client/users.js',         
+        'autentication': './app/client/autentication.js',
         'games': './app/client/games.js'           
     },
     devtool: 'eval-source-map',
