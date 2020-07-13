@@ -4,6 +4,7 @@ const { BrowserRouter } = require('react-router-dom');
 
 const PlayersPage = require('../pages/players/view');
 const styles = require('../pages/players/style.scss');
+import 'semantic-ui-css/semantic.min.css'; 
 
 const initialState = JSON.parse(window.__STATE__);
 

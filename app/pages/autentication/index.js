@@ -10,7 +10,6 @@ const View = require('./view');
 router.get('/*', (req, res, next) => {
     const initialState = {};
     const context = {};
-    console.log('index');
 
     const content = renderToString(
         <StaticRouter location={req.url} context={context}>

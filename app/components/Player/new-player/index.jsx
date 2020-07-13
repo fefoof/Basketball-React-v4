@@ -80,48 +80,40 @@ class NewPlayer extends React.Component {
     <div class="ui middle aligned center aligned grid">
         <div class="column">            
             <div>
-                <h2 class="red-text">Crear un nuevo jugador</h2>
-               
+                <h2 class="red-text">Crear un nuevo jugador</h2>               
                 <form class="ui form" onSubmit={this.handleSubmit}>
-                <div class="ui stacked segment">
-                    <div class="field">
-                        <label>CI:</label>
-                        <input type="text" name="ci" placeholder="Cedula de Identidad" value={this.state.ci} onChange={this.handleCiChange} />
-                    </div>                                        
-                    <div class="two fields">                    
-                        <div>
-                            <label>Nombre:</label>
-                            <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <label>CI:</label>
+                            <input type="text" name="ci" placeholder="Cedula de Identidad" value={this.state.ci} onChange={this.handleCiChange} />
+                        </div>                                        
+                        <div class="two fields">                    
+                            <div>
+                                <label>Nombre:</label>
+                                <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
+                            </div>
+                            <div>
+                                <label>Apellido:</label>
+                                <input type="text" name="surname" value={this.state.surname} onChange={this.handleSurnameChange}/>
+                            </div>
                         </div>
                         <div>
-                            <label>Apellido:</label>
-                            <input type="text" name="surname" value={this.state.surname} onChange={this.handleSurnameChange}/>
+                            <label>Fecha de nacimiento:</label>
+                            <input type="text" name="birthdate" value={this.state.birthdate} onChange={this.handleBirthdateChange}/>
+                        </div>       
+                        <div class="field">
+                            <div class="ui checkbox">
+                            <input type="checkbox" tabIndex="0" class="hidden"/>
+                            <label>I agree to the Terms and Conditions</label>
+                            </div>
                         </div>
+                        <button primary class="ui primary button" >
+                            Save
+                        </button>
+                        <button class="ui button">
+                            Discard
+                        </button>                    
                     </div>
-                    <div>
-                        <label>Fecha de nacimiento:</label>
-                        <input type="text" name="birthdate" value={this.state.birthdate} onChange={this.handleBirthdateChange}/>
-                    </div>       
-
-
-           
-
-               
-                    <div class="field">
-                        <div class="ui checkbox">
-                        <input type="checkbox" tabindex="0" class="hidden"/>
-                        <label>I agree to the Terms and Conditions</label>
-                        </div>
-                    </div>
-
-                    <button primary class="ui primary button" >
-                        Save
-                    </button>
-                    <button class="ui button">
-                        Discard
-                    </button>
-                    
-                </div>
                 </form>
             </div>
         </div>

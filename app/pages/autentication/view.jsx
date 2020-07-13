@@ -2,6 +2,7 @@ const React = require('react');
 const { Route } = require('react-router-dom');
 const User = require('../../components/User/user');
 const Signin = require ('../../components/autentication/signin');
+const Signup = require ('../../components/autentication/signup');
 
 
 class AutenticationPage extends React.Component {
@@ -18,7 +19,7 @@ class AutenticationPage extends React.Component {
                 <Route
                     exact
                     path="/signup"
-                    render={(props) => <Players {...props} users={users}/>}
+                    render={(props) => <Signup {...props} id={props.match.params.id}/>}
                 />
             </React.Fragment>
         );
