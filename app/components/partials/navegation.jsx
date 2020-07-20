@@ -40,7 +40,7 @@ class Navigation extends React.Component {
                             </div>                    
                         </li>                
                         <li class="nav-item">
-                            <a class="nav-link" href="/login"><i class="fas fa-address-book"></i> Login</a>
+                            <a class="nav-link" href="/users/signin"><i class="fas fa-address-book"></i> Login</a>
                         </li>                
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true"> Disabled</a>

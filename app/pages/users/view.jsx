@@ -3,6 +3,8 @@ const { Route } = require('react-router-dom');
 const Users = require('../../components/User/users');
 const UserDetail = require ('../../components/User/user-details');
 const NewUser = require ('../../components/User/new-user');
+const Signin = require ('../../components/autentication/signin');
+const Signup = require ('../../components/autentication/signup');
 
 class UsersPage extends React.Component {
     render() {
@@ -12,9 +14,20 @@ class UsersPage extends React.Component {
         return (
             <React.Fragment>
                 <Route
-                    path="/users/:id"
+                    exact
+                    path="/users/detail/:id"
                     render={(props) => <UserDetail {...props} id={props.match.params.id}/>}
                 />
+                <Route
+                    exact
+                    path="/users/signin"
+                    render={(props) => <Signin {...props} /* id={props.match.params.id} *//>}
+                />                   
+                <Route
+                    exact
+                    path="/users/signup"
+                    render={(props) => <Signup {...props} /* id={props.match.params.id} *//>}
+                />                            
                 <Route
                     exact
                     path="/users"

@@ -14,7 +14,7 @@ const { apiErrorHandler } = require('../middlewares/error-handler');
 
 const { apiAuthorizationMiddleware } = require('../middlewares/authorization-middleware');
 
-router.use(apiAuthorizationMiddleware);
+//router.use(apiAuthorizationMiddleware);
 router.use('/tasks', taskRouter);
 router.use('/middlewares', apiAuthorizationMiddleware, playerRouter);
 router.use('/championship', championshipRouter);

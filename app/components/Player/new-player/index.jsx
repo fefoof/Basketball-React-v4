@@ -60,11 +60,13 @@ class NewPlayer extends React.Component {
                 birthdate: this.state.birthdate                                
             })
         }).then(res => res.json()).then((data) =>{
-
-            this.setState({
-                redirect: true
-            });
-
+            if (data.message){
+                alert(data.message);
+            }else{
+                this.setState({
+                    redirect: true
+                });
+            }
         }).catch((err) => {
             alert('Ocurrio un error');
         });
@@ -77,42 +79,36 @@ class NewPlayer extends React.Component {
         } 
         return (
 
-    <div class="ui middle aligned center aligned grid">
-        <div class="column">            
-            <div>
-                <h2 class="red-text">Crear un nuevo jugador</h2>               
-                <form class="ui form" onSubmit={this.handleSubmit}>
-                    <div class="ui stacked segment">
-                        <div class="field">
+    <div className="ui middle aligned center aligned grid">
+        <div className="column">            
+            <div class="container">            
+                <form className="ui form" onSubmit={this.handleSubmit}>
+                    <div className="ui stacked segment">
+                        <div className="field">
                             <label>CI:</label>
                             <input type="text" name="ci" placeholder="Cedula de Identidad" value={this.state.ci} onChange={this.handleCiChange} />
-                        </div>                                        
-                        <div class="two fields">                    
-                            <div>
+                        </div>                                                           
+                        <div className="field">
                                 <label>Nombre:</label>
                                 <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange} />
-                            </div>
-                            <div>
+                        </div>
+                        <div className="field">
                                 <label>Apellido:</label>
                                 <input type="text" name="surname" value={this.state.surname} onChange={this.handleSurnameChange}/>
-                            </div>
                         </div>
-                        <div>
+                        <div className="field">
                             <label>Fecha de nacimiento:</label>
                             <input type="text" name="birthdate" value={this.state.birthdate} onChange={this.handleBirthdateChange}/>
                         </div>       
-                        <div class="field">
-                            <div class="ui checkbox">
-                            <input type="checkbox" tabIndex="0" class="hidden"/>
+                        <div className="field">
+                            <div className="ui checkbox">
+                            <input type="checkbox" tabIndex="0" className="hidden"/>
                             <label>I agree to the Terms and Conditions</label>
                             </div>
                         </div>
-                        <button primary class="ui primary button" >
+                        <button primary className="ui fluid large teal submit button"/* className="ui primary button" */ >
                             Save
-                        </button>
-                        <button class="ui button">
-                            Discard
-                        </button>                    
+                        </button>                  
                     </div>
                 </form>
             </div>

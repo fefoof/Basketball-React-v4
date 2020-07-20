@@ -147,12 +147,10 @@ class PlayerDetail extends React.Component {
         return(
             <div>                
                 <div>
-{/*                         {
-                        player.map(player => ( */}
                             <div>
 
 
-<div class="ui middle aligned center aligned grid">
+    <div class="ui middle aligned center aligned grid">
         <div class="column">            
             <div>
                 <h2 className="red-text">Detalle de jugador</h2>
@@ -176,23 +174,8 @@ class PlayerDetail extends React.Component {
                         <label>Fecha de nacimiento:</label>
                         <input type="text" name="birthdate" placeholder={this.state.playerBD.birthdate} value={this.state.birthdate} onChange={this.handleBirthdateChange}/>
                     </div>                                       
-                                  
-{/*                     <div class="two fields">                    
-                        <div>
-                            <label>Nombre:</label>
-                            <input type="text" name="name" value={player.name} onChange={this.handleNameChange} />
-                        </div>
-                        <div>
-                            <label>Apellido:</label>
-                            <input type="text" name="surname" value={player.surname} onChange={this.handleSurnameChange}/>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Fecha de nacimiento:</label>
-                        <input type="text" name="birthdate" value={player.birthdate} onChange={this.handleBirthdateChange}/>
-                    </div>       */} 
 
-                    <button primary class="ui primary button" >
+                    <button primary class="ui primary button"   >
                         Salvar
                     </button>
                     <button class="ui button" onClick={this.handleBorrar}>
@@ -205,12 +188,7 @@ class PlayerDetail extends React.Component {
         </div>
     </div> 
 
-
-                            </div> 
-
-                            
-                        {/*  ) )                                        
-                        }     */} 
+                            </div>                         
                 </div>
             </div>
         )

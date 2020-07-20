@@ -8,10 +8,6 @@ const passport = require("passport");
 const bcrypt = require('bcrypt');
 const { getPlayerById } = require('../../models/player');
 
-/* const  renderSignUpForm = (req, res) => {
-  res.render('signup');
-};
- */
 //const singup = (req, res, next) => {
 router.post('/', (req, res, next) => {
   console.log('singup');
@@ -41,17 +37,21 @@ router.post('/', (req, res, next) => {
 
     Player.getPlayerById(idplayer)
     .then((playerBD)=>{
-      const saltRounds = 10;
-      bcrypt.hash(password, saltRounds, (err, hash)=> {
-        newUser.password = hash;
-        newUser.saveUser()
-          .then((userSave)=>{       
-              res.json({userSave});
-          })
-          .catch((err)=>{
-              next(err);
-          });
-      });              
+      if(playerBD[0]){
+          const saltRounds = 10;
+          bcrypt.hash(password, saltRounds, (err, hash)=> {
+            newUser.password = hash;
+            newUser.saveUser()
+              .then((userSave)=>{       
+                  res.json({userSave});
+              })
+              .catch((err)=>{
+                  next(err);
+              });
+          });   
+        }else{
+          res.json({"message":"Jugador no existe"});  
+        }
     })  
     .catch((err)=>{
       next(err);
@@ -59,31 +59,130 @@ router.post('/', (req, res, next) => {
   }
 });
 
-const signin = (req, res, next) => {
-    const { user, password } = req.body;
 
-    User.getUser(user)
-    .then((userBase)=>{
-      if (userBase) {
-        console.log(userBase.password);
-        bcrypt.compare(password, userBase.password, (err, compareResult)=> {
+router.delete('/:id', (req, res, next) => {  
+  console.log("midd delete user"); 
+  const {user/* , password,state,idplayer,email,confirm_password */} = req.body;
+  //const newUser = new User(user, password,state,idplayer,email);  
+
+    User.deleteUser(user)
+    .then(userBD => {
+      res.json({userBD});   
+    })
+    .catch(err => {
+      next(err);  
+    }); 
+});
+
+
+router.post('/:id', (req, res, next) => {
+  console.log("midd post user"); 
+  const {user, password,state,idplayer,email,confirm_password} = req.body;
+  const newUser = new User(user, password,state,idplayer,email);  
+
+
+  Player.getPlayerById(idplayer)
+    .then(playerBD => {
+        console.log(playerBD);
+        console.log("update base");
+        if(playerBD[0]){
+          newUser.updateUser()
+          .then(userBD => {
+            res.json({userBD}); 
+          })
+          .catch(err => {
+            next(err);  
+          });
+        }else{
+          res.json({"message":"Jugador no existe"});  
+        }
+    })
+    .catch(err => {
+      next(err);  
+    });
+  
+ 
+});
+
+router.get('/:id', (req, res, next) => {
+
+
+  console.log("get('/:id'");   
+  User.getUser(req.params.id)
+    .then(userBD => {
+      console.log("get user por id");
+      res.json({userBD}); 
+    })
+    .catch(err => {
+      next(err);  
+    });  
+}); 
+
+//const signin = (req, res, next) => {
+router.get('/signin/:id', (req, res, next) => {
+    /* const { user, password } = req.body; */
+    console.log("sigin");
+    User.getUser(req.params.id)
+    .then((userBD)=>{
+      if (userBD) {
+        console.log(userBD.password);
+        res.json({userBD}); 
+         bcrypt.compare(req.params.password, userBD.password, (err, compareResult)=> {
             console.log(compareResult);
             if (compareResult) {
-                req.session.user = user;
-                res.render('index', {message: 'Login con exito'});
+                req.session = userBD;
+                //res.render('index', {message: 'Login con exito'});
+                res.json({userBD}); 
             }else{
-                res.render("signin", {message: 'Usuario y/o contraseña incorrecta.'});
+              res.json({message: 'Usuario y/o contraseña incorrecta.'});
             }
-        });
+        }); 
       }else{
-          res.render("signin", {message: 'Usuario y/o contraseña incorrecta.'});
+        res.json({message: 'Usuario y/o contraseña incorrecta.'});
       }      
 
     })  
     .catch(function(err){
       console.log(err);
-    });
-};  
+      next(err); 
+    }); 
+});
+ 
+
+
+router.post('/signin', (req, res, next) => {
+  const { user, password } = req.body; 
+ console.log(req.body);
+  User.getUser(user)
+  .then((userBD)=>{
+    console.log(userBD);
+    if (userBD[0]) {
+       console.log(userBD);
+       const passwordI = userBD[0].password;      
+        bcrypt.compare(password, passwordI, (err, compareResult)=> {
+          console.log("entro bcrypt");
+          console.log(compareResult);
+          if (compareResult) {
+            console.log("entro logueado");
+              req.session = "Hola";//userBD[0];
+              res.json({userBD}); 
+              console.log("salio logueado");
+              console.log(req.session);
+          }else{
+            res.status(403).json({message: 'Usuario y/o contraseña incorrecta.'});
+          }
+        }); 
+    }else{
+      res.status(403).json({message: 'Usuario no registrado.'});
+    }      
+
+  })  
+  .catch(function(err){
+    console.log(err);
+    next(err); 
+  }); 
+});
+
 
 const logout = (req, res) => {
   req.logout();
@@ -107,12 +206,15 @@ router.get('/', (req, res, next) => {
   console.log("llego");   
   User.getAllUsers()
     .then(listUsers => {    
-      console.log(listUsers);   
+      //console.log(listUsers);   
       res.json({listUsers});
     })
     .catch(err => {
       next(err);  
     });    
 });
+
+
+
 
 module.exports = router;

@@ -13,8 +13,9 @@ class AutenticationPage extends React.Component {
         return (
             <React.Fragment>
                 <Route
+                    exact                
                     path="/signin"
-                    render={(props) => <Signin {...props} id={props.match.params.id}/>}
+                    render={(props) => <Signin {...props} autentication={autentication}/>}
                 />
                 <Route
                     exact

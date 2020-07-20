@@ -118,20 +118,13 @@ class Player{
     static getAllPlayers(){
         console.log('getAllPlayers');
         return new Promise((resolve,reject)=>{
-            console.log('getAllPlayers db');
             dbCOnn.query(GET_ALL_PLAYERS, (error, result)=>{
                 if (error){
                     reject(error);                
                 }else{
-                    console.log('else');
                     if (result[0]){
                         try {                        
-                            console.log('encontro');
                             resolve(result);
-/*                             resolve(result.map((player) => {
-                                const { idplayer, name, surname, birthdate } = player;
-                                return new Player(idplayer, name, surname, birthdate);
-                            })); */
                         } catch(err) {
                             reject(err);
                         }                           

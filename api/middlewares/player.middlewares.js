@@ -60,6 +60,7 @@ router.post('/:id', (req, res, next) => {
   const {idPlayer,name,surname, birthdate} = req.body;
   const newPlayer = new Player(idPlayer,name,surname, birthdate);
 
+  console.log("post player"); 
   newPlayer.updatePlayer()
     .then(playerBD => {
       res.json({playerBD}); 
@@ -71,6 +72,8 @@ router.post('/:id', (req, res, next) => {
 
 //const deletePlayer = (req, res, next) => {
 router.delete('/:id', (req, res, next) => {  
+
+  console.log("delete player"); 
 
   const {idPlayer,name,surname, birthdate} = req.body;
   const newPlayer = new Player(idPlayer,name,surname, birthdate);
@@ -92,11 +95,10 @@ router.delete('/:id', (req, res, next) => {
 
 //const getAllPlayers = (req, res, next) => {
 //router.get('/', validar(), getAllUser()); y dejar las funciones abajo por fuera
-router.get('/', (req, res, next) => {
-  console.log("llego");   
+router.get('/', (req, res, next) => {  
   Player.getAllPlayers()
     .then(listPlayers => {    
-      console.log(listPlayers);   
+      /* console.log(listPlayers); */   
       res.json({listPlayers});
     })
     .catch(err => {

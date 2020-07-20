@@ -53,16 +53,10 @@ class NewUser extends React.Component {
 
     handleIdplayerChange(event) {
         this.setState({
-            state: event.target.value
-        });
-    }
-
-    handleIdplayerChange(event) {
-        this.setState({
             idplayer: event.target.value
         });
     }
-    
+
     handleEmailChange(event) {
         this.setState({
             email: event.target.value
@@ -71,8 +65,8 @@ class NewUser extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.user);
-        fetch('/api/user', {
+        console.log("submit");
+        fetch('/api/users', {
             method: 'POST',
             headers : { "Content-Type" : "application/json; charset=utf-8"},
             body: JSON.stringify({
@@ -80,54 +74,57 @@ class NewUser extends React.Component {
                 password: this.state.password,
                 confirmpassword: this.state.confirmpassword,
                 state: "A",
-                idPlayer: this.state.idplayer,
+                idplayer: this.state.idplayer,
                 email: this.state.email                
             })
         }).then(res => res.json()).then((data) =>{
+            alert('Submit usuario');
 
-            this.setState({
-                redirect: true
-            });
-
+            if (data.message){
+                alert(data.message);
+            }else{
+                this.setState({
+                    redirect: true
+                });
+            }
         }).catch((err) => {
             alert('Ocurrio un Error');
+            alert(err);
         });
     }
 
     render() {
-
+        if (this.state.redirect) {
+            this.props.id = this.state.ci;
+            return <Redirect to="/users" />
+        } 
         return (
 
     <div class="ui middle aligned center aligned grid">
         <div class="column">            
             <div>
-                <h2 className="red-text">Crear un nuevo jugador</h2>
-               
                 <form class="ui form" onSubmit={this.handleSubmit}>
                 <div class="ui stacked segment">
                     <div class="field">
                         <label>Usuario:</label>
                         <input type="text" name="user" placeholder="Usuario" value={this.state.user} onChange={this.handleUserChange} />
-                    </div>                    
-                    <div class="two fields">                    
-                        <div>
-                            <label>Password:</label>
-                            <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                        </div>
-                        <div>
-                            <label>Confirmar Password:</label>
-                            <input type="text" name="confirmpassword" value={this.state.confirmpassword} onChange={this.handleConfirmPasswordChange} />
-                        </div>                        
-                        <div>
-                            <label>Jugador:</label>
-                            <input type="text" name="idplayer" value={this.state.idplayer} onChange={this.handleIdplayerChange}/>
-                        </div>
+                    </div>                                    
+                    <div class="field">
+                        <label>Password:</label>
+                        <input type="text" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
                     </div>
-                    <div>
+                    <div class="field">
+                        <label>Confirmar Password:</label>
+                        <input type="text" name="confirmpassword" value={this.state.confirmpassword} onChange={this.handleConfirmPasswordChange} />
+                    </div>                                            
+                    <div class="field">
+                        <label>Jugador:</label>
+                        <input type="text" name="idplayer" value={this.state.idplayer} onChange={this.handleIdplayerChange}/>
+                    </div>
+                    <div class="field">
                         <label>Email:</label>
                         <input type="text" name="email" value={this.state.email} onChange={this.handleEmailChange}/>
-                    </div>  
-                     
+                    </div>                       
                     <div class="field">
                         <div class="ui checkbox">
                         <input type="checkbox" tabIndex="0" class="hidden"/>
@@ -135,13 +132,9 @@ class NewUser extends React.Component {
                         </div>
                     </div>
 
-                    <button primary class="ui primary button" >
+                    <button primary className="ui fluid large teal submit button"/* class="ui primary button" */ >
                         Save
                     </button>
-                    <button class="ui button">
-                        Discard
-                    </button>
-                    
                 </div>
                 </form>
             </div>

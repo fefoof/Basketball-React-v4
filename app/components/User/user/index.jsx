@@ -9,11 +9,11 @@ class User extends React.Component {
         <div class="item">
           <div class="ui horizontal list">
             <div class="item center">
-              <img class="ui mini circular image" src="../../images/user.png"/>
+              <img class="ui mini circular image" src="../../images/jugador.png"/>
             </div>
             <div class="item">
               <div class="content">
-                <div class="ui header"><Link to={`/users/${this.props.iduser}`}> {this.props.iduser} {this.props.state} </Link></div>
+                <div class="ui header"><Link to={`/users/detail/${this.props.iduser}`}> {this.props.iduser} {this.props.state} </Link></div>
                   <div>
                     <div class="content">              
                       <i class="user icon"></i>              

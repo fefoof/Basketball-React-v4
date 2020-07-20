@@ -4,8 +4,8 @@ const GET_USER='SELECT * FROM USER WHERE USER=?';
 const GET_USER_BY_EMAIL='SELECT * FROM USER WHERE EMAIL=?';
 const GET_ALL_USERS='SELECT * FROM USER';
 const POST_NEW_USER='INSERT INTO USER SET ?';
-const UPDATE_USER='UPDATE USER SET password=?, state=?, idPlayer=?, email=? WHERE IDUSER=?';
-const DELETE_USER='DELETE FROM USER WHERE IDUSER=?';
+const UPDATE_USER='UPDATE USER SET password=?, state=?, idPlayer=?, email=? WHERE USER=?';
+const DELETE_USER='DELETE FROM USER WHERE USER=?';
 const DELETE_USER_PLAYER='DELETE FROM USER WHERE IDPLAYER=?';
 
 class User{
@@ -82,6 +82,13 @@ class User{
     
     updateUser(){
         console.log('updateUser');
+        const updatePlayer  = { 
+            user: this.user,
+            password: this.password,
+            state: this.state, 
+            idPlayer: this.idPlayer,
+            email: this.email
+        };        
         return new Promise((resolve,reject)=>{
                 dbCOnn.query(UPDATE_USER, [this.password, this.state, this.idPlayer, this.email, this.user, this.idUser], (error, result)=>{
                     if (error){
@@ -92,6 +99,7 @@ class User{
                 });
 
         })
+
     }
 
 
