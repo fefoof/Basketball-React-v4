@@ -75,7 +75,7 @@ router.delete('/:id', (req, res, next) => {
 });
 
 
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   console.log("midd post user"); 
   const {user, password,state,idplayer,email,confirm_password} = req.body;
   const newUser = new User(user, password,state,idplayer,email);  
@@ -130,7 +130,7 @@ router.get('/signin/:id', (req, res, next) => {
          bcrypt.compare(req.params.password, userBD.password, (err, compareResult)=> {
             console.log(compareResult);
             if (compareResult) {
-                req.session = userBD;
+                req.session.user = userBD.user;
                 //res.render('index', {message: 'Login con exito'});
                 res.json({userBD}); 
             }else{
@@ -164,10 +164,10 @@ router.post('/signin', (req, res, next) => {
           console.log(compareResult);
           if (compareResult) {
             console.log("entro logueado");
-              req.session = "Hola";//userBD[0];
+              req.session.user = "Hola";//userBD[0];
               res.json({userBD}); 
               console.log("salio logueado");
-              console.log(req.session);
+              console.log(req.session.user);
           }else{
             res.status(403).json({message: 'Usuario y/o contraseña incorrecta.'});
           }

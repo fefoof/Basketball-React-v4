@@ -8,11 +8,11 @@ const {renderToString} = require('react-dom/server');
 
 const appAuthorizationMiddleware = (req, res, next) => {
   console.log("Seguridad Web");
-  console.log(req.session);
-  req.session="Hola"
-  console.log(req.session);
+  console.log(req.session.user);
+/*    req.session.user="Hola"
+  console.log(req.session.user);  */
 
-  if (req.session=="Hola"){
+  if (req.session.user/* =="Hola" */){
     console.log("Login Ok - distinto null");
 /*     this.props.session = "usuario"; */
     next();
@@ -31,7 +31,7 @@ const appAuthorizationMiddleware = (req, res, next) => {
 
 const apiAuthorizationMiddleware = (req, res, next) => {
     console.log("Seguridad Api");
-    console.log(req.session);
+    console.log(req.session.user);
 //     if(req.session.user/*  == 'nuevo' */){
 //       next();
 //    }else{

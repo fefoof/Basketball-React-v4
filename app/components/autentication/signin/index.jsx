@@ -34,7 +34,8 @@ handlePasswordChange(event) {
 
  handleSubmit(event) {
     event.preventDefault();
-    fetch(`/api/users/signin`, {
+    alert("signin");
+    fetch(`/api/users/signin/`, {
       method: 'POST',
       headers : { "Content-Type" : "application/json; charset=utf-8"},
       body: JSON.stringify({
@@ -44,13 +45,9 @@ handlePasswordChange(event) {
     })
     .then(res => res.json()).then((data) =>{
       if (data){
-        alert(data);
-        alert(data.message);
-        alert(data.status);
         if (data.message){
           alert(data.message);
         }else{
-          alert("Entro con loguien ok");
           this.setState({
             redirect: true
           }); 

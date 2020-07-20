@@ -76,10 +76,8 @@ class UserDetail extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.ci);
-        alert("Entro submit");
         fetch(`/api/users/${this.props.id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers : { "Content-Type" : "application/json; charset=utf-8"},
             body: JSON.stringify({
                 user: this.state.user,
@@ -93,7 +91,7 @@ class UserDetail extends React.Component {
             if (data.message){
                 alert(data.message);
               }else{
-                alert("Entro update user ok");
+                alert("Usuario Actualizado");
                 this.setState({
                     redirect: true
                 });
@@ -162,7 +160,7 @@ class UserDetail extends React.Component {
                                 </div>                                    
                                 <div class="field">
                                     <label>Password:</label>
-                                    <input type="text" name="password" placeholder="Cambiar Contraseña" value={this.state.password}  onChange={this.handlePasswordChange} />
+                                    <input type="text" name="password" placeholder="Cambiar Contraseña" /* value={this.state.password}  */ onChange={this.handlePasswordChange} />
                                 </div>
 {/*                                 <div class="field">
                                     <label>Confirmar Password:</label>

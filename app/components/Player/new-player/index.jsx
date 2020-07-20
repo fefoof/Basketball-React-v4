@@ -50,7 +50,7 @@ class NewPlayer extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log(this.state.ci);
-        fetch('/api/middlewares', {
+        fetch('/api/middlewares/', {
             method: 'POST',
             headers : { "Content-Type" : "application/json; charset=utf-8"},
             body: JSON.stringify({
@@ -66,7 +66,7 @@ class NewPlayer extends React.Component {
                 this.setState({
                     redirect: true
                 });
-            }
+              }
         }).catch((err) => {
             alert('Ocurrio un error');
         });

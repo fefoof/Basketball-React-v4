@@ -8,12 +8,23 @@ const apiRouter = require('./api');
 const appRouter = require('./app');
 const bodyParser = require('body-parser');
 
+const session = require('express-session');
+
 
 const app = express();
 
 // Configuraciones de express
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/app/views');
+
+
+app.use(session({
+  secret: 'my secret',
+  cookie: {maxAge: 43200000},
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 app.use(express.static(config.static));
 app.use('/images',   express.static(config.staticiamge));
